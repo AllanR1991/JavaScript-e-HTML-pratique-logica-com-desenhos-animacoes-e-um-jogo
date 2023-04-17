@@ -1,0 +1,62 @@
+<!-- O triângulo isósceles maior (ABC) é retângulo e possui os dois catetos iguais. Suas posições (vértices) são A(xa, ya), B(xa, yc), C(xc, yc). Detalhes do ponto B ele explica na aula. Podemos chamar o lado do triângulo de LMa (lado maior). Para o cateto na horizontal, podemos inferir que o lado é xc (posição final) subtraído de xa (posição inicial). Assim concluímos que LMa = xc - xa. O mesmo acontece para o cateto na vertical, ou seja, LMa = yc - ya.
+
+O triângulo isósceles menor (DEF) é retângulo e possui os dois catetos iguais. Suas posições são D(xd, yd), E(xd, yf), F(xf, yf). o caso do ponto E é o mesmo do ponto B explicado em aula. Podemos chamar o lado de LMe (lado menor). Para o cateto na horizontal, podemos inferir que o lado é xf (posição final) subtraído de xd (posição inicial). Assim concluímos que LMe = xf - xd. O mesmo acontece para o cateto na vertical, ou seja, LMe = yf - yd.
+
+Temos também a espessura do esquadro, o qual podemos chamar de E. Ele pode ser calculado, por exemplo, subtraindo a coordenada x do cateto vertical do triângulo menor (DEF) pela coordenada x do cateto vertical do triângulo maior (ABC). Podemos inferir, então, que E = xd - xa ou também E = yc - yf, já que isso ocorre também na vertical.
+
+Agora vamos utilizar duas premissas:
+
+O lado menor LMe é METADE do lado maior LMa. LMe = LMa/2
+A espessura E é um SÉTIMO do valor do lado maior LMa. E = LMa/7
+Assumindo tudo isso, vamos calcular o ponto E do triângulo menor (perto do ponto B do triângulo maior). Vou começar por ele pois apenas precisamos subtrair a espessura tanto no eixo X quanto no eixo Y.
+
+Se eu somar a posição do eixo X do ponto B (xa) com a espessura E, eu saberei a posição xd.
+
+Pela premissa 2, E = LMa/7 e LMa = (xc - xa) ou LMa = (yc - ya). Assim, E = (xc - xa)/7 ou E = (yc - ya)/7. Vamos somar ao valor de xa.
+
+xd = E + xa
+xd = xa + (xc - xa)/7
+xd = (7*xa + xc - xa)/7
+xd = (6*xa + xc)/7
+Para encontrarmos yf, ainda utilizando a premissa 2, podemos pegar o valor de yc e subtrair a espessura E.
+
+yf = yc - E
+yf = yc - (yc-ya)/7
+yf = (7*yc - yc + ya)/7
+yf = (ya + 6*yc)/7
+Para calcularmos xf, podemos pegar o valor de xd, cuja fórmula é xd = (6xa + xc)/7 e adicionar o valor de LMe. E LMe = LMa/2. Por sua vez LMa = (xc-xa)
+
+xf = xd + LMe
+xf = xd = (6*xa + xc)/7 + (xc-xa)/2
+xf = (2*(6*xa+xc) + 7*(xc-xa))/14
+xf = (12*xa-7*xa + 7*xc+2*xc)/14
+xf = (5*xa + 9*xc)/14
+Falta apenas o cálculo de yd, o qual podemos calcular utilizando o valor de yf, cuja fórmula é yf = (ya + 6yc)/7 e subtraindo o valor de LMe. E LMe = LMa/2. Por sua vez LMa = (yc-ya).
+
+yd = yf - LMe
+yd = (ya + 6*yc)/7 - (yc-ya)/2
+yd = (2*ya + 12*yc - 7*yc + 7*ya)/14
+yd = (9*ya + 5*yc)/14 -->
+
+<canvas width="600" height="400"></canvas>
+<script>
+  var tela = document.querySelector('canvas');
+  var pincel = tela.getContext('2d');
+
+  function desenhaEsquadro(xa, ya, xc, yc, cor) {
+    pincel.fillStyle = cor
+    pincel.beginPath();
+    pincel.moveTo(xa, ya);
+    pincel.lineTo(xa, yc);
+    pincel.lineTo(xc, yc);
+    pincel.fill();
+    pincel.fillStyle = 'white'
+    pincel.beginPath();
+    /*Referente a formula utilizada está descrita acima.*/
+    pincel.moveTo((6 * xa + xc) / 7, (9 * ya + 5 * yc) / 14);
+    pincel.lineTo((6 * xa + xc) / 7, (ya + 6 * yc) / 7);
+    pincel.lineTo((5 * xa + 9 * xc) / 14, (ya + 6 * yc) / 7);
+    pincel.fill();
+  }
+  desenhaEsquadro(10, 10, 200, 200, 'black');
+</script>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas width="600" height="400"></canvas>
+    <script>
+        
+        function desenhaRetangulo(x,y,largura,altura,cor){
+            
+            var tela = document.querySelector('canvas');
+            var pincel = tela.getContext('2d');
+
+            pincel.fillStyle = cor;
+            pincel.fillRect(x,y,largura,altura);
+            pincel.strokeStyle = 'black';
+            pincel.strokeRect(x,y,largura,altura);
+        }
+
+        function desenhaTexto(texto,x,y){
+            var tela = document.querySelector('canvas');
+            var pincel = tela.getContext('2d');
+
+            pincel.font='15px Georgia';
+            pincel.fillStyle = 'black';
+            pincel.fillText(texto,x,y);
+        }
+        
+
+        var serie2015 =[50,25,20,5];
+        var serie2016 =[65,20,13,2];
+        var cores = ['blue','green','yellow','red'];
+        var navegadores = ['Chrome','Firefox','Safari','Outros'];
+        
+        function desenhaBarra(texto,x,serie){
+            const pocicaoYTexto = 15;
+            const espaçoEntreTextoGrafico = 5;
+            desenhaTexto(texto,x,pocicaoYTexto);
+            var y=pocicaoYTexto+espaçoEntreTextoGrafico;
+            for(var i=0; i<serie.length ;i++){
+                desenhaRetangulo(x,y,40,serie[i],cores[i]);
+                y+=serie[i];
+            }
+        }
+
+        function legenda(texto,y){
+            for(var i=0;i<navegadores.length;i++){
+                var tamanhoQuadrado = 20
+                desenhaRetangulo(0,y,tamanhoQuadrado,tamanhoQuadrado, cores[i]);
+                desenhaTexto(texto[i],25,y+tamanhoQuadrado);
+                y+=tamanhoQuadrado+5;
+            }
+            
+
+            
+        }
+
+        desenhaBarra('2015',0,serie2015);
+        desenhaBarra('2016',45,serie2016);
+        legenda(navegadores,130);
+
+
+
+    </script>
+</body>
+</html>

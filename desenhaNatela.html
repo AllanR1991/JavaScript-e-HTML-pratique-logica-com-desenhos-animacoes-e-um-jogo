@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id='telaBranca' width="600" height="400"></canvas>
+    <canvas id='telaCinza' width="600" height="400"></canvas>
+    <script>
+        var areaDeTrabalho = document.getElementById('telaBranca');
+        var pincel = areaDeTrabalho.getContext('2d');
+        var y=0;
+
+        pincel.fillStyle = 'grey';
+        pincel.fillRect(0,0,600,400);
+        
+        function mova(e){
+            console.log(e);
+            x = e.pageX - areaDeTrabalho.offsetLeft;
+            y = e.pageY - areaDeTrabalho.offsetTop;
+        }
+
+        function desenhaCirculo(e){
+            console.log(e);
+            console.log(x,y);
+            pincel.beginPath();
+            pincel.fillStyle = 'blue';
+            pincel.arc(x,y,10,0,2*3.14);
+            pincel.fill();
+        }
+
+        
+        areaDeTrabalho.onmousemove = mova;
+        areaDeTrabalho.onmousedown = desenhaCirculo;
+
+
+    </script>
+</body>
+
+</html>
