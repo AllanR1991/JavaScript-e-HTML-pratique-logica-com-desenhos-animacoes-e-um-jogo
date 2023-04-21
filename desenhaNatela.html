@@ -14,30 +14,68 @@
     <script>
         var areaDeTrabalho = document.getElementById('telaBranca');
         var pincel = areaDeTrabalho.getContext('2d');
-        var y=0;
-
+        var y;
+        var x;
+        /* var mouseprecionado = false; */
+        var desenha = false;
         pincel.fillStyle = 'grey';
-        pincel.fillRect(0,0,600,400);
-        
-        function mova(e){
-            console.log(e);
-            x = e.pageX - areaDeTrabalho.offsetLeft;
-            y = e.pageY - areaDeTrabalho.offsetTop;
-        }
+        pincel.fillRect(0, 0, 600, 400);
 
-        function desenhaCirculo(e){
-            console.log(e);
-            console.log(x,y);
-            pincel.beginPath();
+        /* 
+        Parte feita por mim.
+
+        function mova(e){
+            console.log(mouseprecionado)
+            if(mouseprecionado==true){
+            var posicaoX = e.pageX - areaDeTrabalho.offsetLeft;
+            var posicaoY = e.pageY - areaDeTrabalho.offsetTop;
+            desenhaCirculo(posicaoX,posicaoY);
+            }
+        }
+ 
+        function desenhaCirculo(x,y){
+            console.log('Posição X e y no desenhaCiruclo'+x+y);
             pincel.fillStyle = 'blue';
+            pincel.beginPath();          
             pincel.arc(x,y,10,0,2*3.14);
             pincel.fill();
         }
+        
+         function botaoPrecionado(e){
+            mouseprecionado = true;
+            var posicaoX = e.pageX - areaDeTrabalho.offsetLeft;
+            var posicaoY = e.pageY - areaDeTrabalho.offsetTop;
+            desenhaCirculo(posicaoX,posicaoY);
+            areaDeTrabalho.onmousemove = mova;
+        }
+        
+        function botaoSolto(){
+            mouseprecionado = false;
+        }
+        Fim da minha resolução.
+        */
+
+        function desenhaCirculo(e) {
+            if (desenha) {
+                var x = e.pageX - areaDeTrabalho.offsetLeft;
+                var y = e.pageY - areaDeTrabalho.offsetTop;
+                pincel.fillStyle = 'blue';
+                pincel.beginPath();
+                pincel.arc(x, y, 10, 0, 2 * 3.14);
+                pincel.fill();
+            }
+        }
 
         
-        areaDeTrabalho.onmousemove = mova;
-        areaDeTrabalho.onmousedown = desenhaCirculo;
 
+
+        areaDeTrabalho.onmousedown = function (){
+            desenha = true;
+        };
+        areaDeTrabalho.onmouseup = function (){
+            desenha = false;
+        };
+        areaDeTrabalho.onmousemove = desenhaCirculo;
 
     </script>
 </body>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width='device-width', initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas width="600" height='400'></canvas>
+    <script>
+        function DesenhaQuadrado(x,y,tamanho,cor){
+            pincel.fillStyle = cor;
+            pincel.fillRect(x,y,tamanho,tamanho);
+        }
+
+        function DesenhaCirulo(x,y,raio,cor){
+            pincel.fillStyle = cor;
+            pincel.beginPath();
+            pincel.arc(x,y,raio,0,2,Math.PI);
+            pincel.fill();
+        }
+
+        function DesenhaPaletaDeCores(){
+            DesenhaQuadrado(xVermelho,yQuadrados,tamanhoQuadrados,'red');
+            DesenhaQuadrado(xVerde,yQuadrados,tamanhoQuadrados,'green');
+            DesenhaQuadrado(xAzul,yQuadrados,tamanhoQuadrados,'blue');
+        }
+        var raio = 5;
+        var x;
+        function LidaComMovimentosDoMouse(e){
+            x = e.pageX - areDeTrabalho.offsetLeft;
+            var y = e.pageY - areDeTrabalho.offsetTop;
+
+            if((x<150+raio) && (y<50+raio)){
+                
+            }else if(desenha){
+                DesenhaCirulo(x,y,5,corAtual);
+            }
+           
+        }
+
+        function HabilitaDesenhar(){
+            desenha = true;
+        }
+
+        function DesabilitaDesenhar(){
+            desenha = false;
+        }
+ 
+        function EscolheCor(){
+            if(x>0 && x <50){
+                corAtual = 'red';
+            }else if(x >=50 && x<100){
+                corAtual='green';
+            }else if(x >=100 && x<=150){
+                corAtual='blue';
+            }
+        }
+
+        
+
+
+        var areDeTrabalho = document.querySelector('canvas');
+        var pincel = areDeTrabalho.getContext('2d');
+        pincel.fillStyle = 'lightgray';
+        pincel.fillRect(0,0,600,400);
+
+        var desenha = false;
+        var corAtual = 'blue';
+        var xVermelho= 0;
+        var xVerde = 50;
+        var xAzul = 100;
+        var yQuadrados = 0;
+        var tamanhoQuadrados = 50;
+
+        
+        DesenhaPaletaDeCores();
+
+
+        areDeTrabalho.onclick = EscolheCor;
+        areDeTrabalho.onmousemove = LidaComMovimentosDoMouse;
+        areDeTrabalho.onmousedown = HabilitaDesenhar;
+        areDeTrabalho.onmouseup = DesabilitaDesenhar;
+
+    </script>
+</body>
+</html>

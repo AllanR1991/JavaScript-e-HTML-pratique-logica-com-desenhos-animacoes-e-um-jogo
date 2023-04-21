@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas width="600" height="400"></canvas>
+    <script>
+        var areaDeTrabalho = document.querySelector('canvas');
+        var pincel = areaDeTrabalho.getContext('2d');
+
+        function desenhaTela(){
+        pincel.fillStyle = 'lightgrey';
+        pincel.rect(0, 0, 600, 400);
+        pincel.fill();
+        }
+
+        function desenhaCirculo(x,y,raio) {
+            pincel.fillStyle = 'red';
+            pincel.beginPath();
+            pincel.arc(x,y,raio,0,2*Math.PI);
+            pincel.fill();
+        }
+
+        function limpaTela(){
+            pincel.clearRect(0,0,600,400);
+            desenhaTela()
+        }
+
+        var x = 20;
+        var y = 20;
+        var teclaS =83;
+        var teclaW =87;
+        var teclaA =65;
+        var teclaD =68;
+        var teclaCima =38;
+        var teclaBaixo =40;
+        var teclaDireita = 39 ;
+        var teclaEsquerda = 37;
+        var passos = 10;
+        
+        function atualizaTela(){
+            limpaTela();
+            desenhaCirculo(x,y,10);
+        }
+
+        function leDoTeclado(e){
+            console.log(e.keyCode);
+            if(e.keyCode==teclaCima || e.keyCode==teclaW){
+                y=y-passos;
+            }else if(e.keyCode==teclaBaixo || e.keyCode==teclaS){
+                y=y+passos;
+            }else if(e.keyCode==teclaDireita || e.keyCode==teclaD){
+                x=x+passos;
+            }else if(e.keyCode==teclaEsquerda || e.keyCode==teclaA){
+                x=x-passos;
+            }
+        }
+
+        desenhaTela();
+        setInterval(atualizaTela, 20);
+
+        document.onkeydown = leDoTeclado;
+    </script>
+</body>
+
+</html>

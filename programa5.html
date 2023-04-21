@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas width="600" height="400"></canvas>
+    <script>
+        var areaDeTrabalho = document.querySelector('canvas');
+        var pincel = areaDeTrabalho.getContext('2d');
+
+        function DesenhaFundo(){
+        pincel.fillStyle = 'lightgrey';
+        pincel.fillRect(0, 0, 600, 400);
+        }
+        var raio = 10;
+
+        function DesenhaCirculo(x, y, raio, cor) {
+            pincel.fillStyle = cor;
+            pincel.beginPath();
+            pincel.arc(x, y, raio, 0, 2 * Math.PI);
+            pincel.fill();
+        }
+
+        function LimpaTela() {
+            pincel.clearRect(0, 0, 600, 400);
+        }
+        function DesenhaAlvo(x, y) {
+            DesenhaCirculo(x, y, raio + 20, 'red');
+            DesenhaCirculo(x, y, raio + 10, 'white');
+            DesenhaCirculo(x, y, raio, 'red');
+        }
+
+        function SorteiaPosicao(maximo) {
+            /* Math.floor -> arredonda o valor para baixo; */
+            return Math.floor(Math.random() * maximo);
+        }
+
+        var xAleatorio;
+        var yAleatorio;
+
+        function atualizaTela() {
+            LimpaTela();
+            DesenhaFundo();
+            xAleatorio = SorteiaPosicao(600);
+            yAleatorio = SorteiaPosicao(400);
+            DesenhaAlvo(xAleatorio, yAleatorio);
+        }
+
+        function Dispara(e){
+            var x = e.pageX - areaDeTrabalho.offsetLeft;
+            var y = e.pageY - areaDeTrabalho.offsetTop;
+            if( (x>xAleatorio-raio) && (x<xAleatorio+raio) && (y>yAleatorio-raio) && (y<yAleatorio+raio) ){
+                alert('Você acertou');
+            }
+        }
+
+        
+        setInterval(atualizaTela, 1000);
+        areaDeTrabalho.onclick = Dispara;
+
+
+    </script>
+</body>
+
+</html>
